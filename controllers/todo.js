@@ -25,5 +25,27 @@ const addTodo = (req, res) => {
         .catch(err => res.status(500).json(err.message))
 }
 
-module.exports = { getTodos, getTodo, addTodo }
+const updateTodo = (req, res) => {
+    const { id } = req.params
+    todo
+        .findOneAndUpdate({ id }, req.body)
+        .then(todo => res.status(200).json(todo))
+        .catch(err => res.status(500).json(err.message))
+}
+
+const deleteTodo = (req, res) => {
+    const { id } = req.params
+    todo
+        .deleteOne({ id })
+        .then(todo => res.status(200).json(todo))
+        .catch(err => res.status(500).json(err.message))
+}
+
+module.exports = { 
+    getTodos, 
+    getTodo, 
+    addTodo, 
+    updateTodo,
+    deleteTodo
+}
 
