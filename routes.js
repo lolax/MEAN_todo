@@ -8,13 +8,13 @@ module.exports = server => {
         
     server.route('/todo/:id')
         .get(todoController.getTodo)
-        // .put(todoController.updateTodo)
-        // .delete(todoController.deleteTodo)
+        .put(todoController.updateTodo)
+        .delete(todoController.deleteTodo)
 
     server.route('/user')
         .get(userController.getUsers)
-        // .put(userController.updateUser)
-        // .delete(userController.deleteUser)
+        .put(userController.updateUser)
+        .delete(userController.deleteUser)
 
     server.route('/signup')
         .post(userController.signup)
