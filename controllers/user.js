@@ -1,12 +1,5 @@
 const user = require('../models/user');
 
-const getUsers = (req, res) => {
-    user
-        .find()
-        .then(users => res.status(200).json(users))
-        .catch(err => res.status(500).json(err))
-}
-
 const signup = (req, res) => {
     const newUser = new user(req.params.user)
     newUser
@@ -16,7 +9,39 @@ const signup = (req, res) => {
 }
 
 const login = (req, res) => {
-    res.status(200).json(req.body)
+    user
+        .find({ name: req.body.name })
+        .then(user => res.status(200).json(user))
+        .catch(err => res.status(500).json(err.message))
 }
 
-module.exports = { getUsers, signup, login }
+const getUsers = (req, res) => {
+    user
+        .find()
+        .then(users => res.status(200).json(users))
+        .catch(err => res.status(500).json(err.message))
+}
+
+const updateUser = (req, res) => {
+    const { id } = req.params
+    user
+        .findOneAndUpdate({ id }, req.body)
+        .then(user => res.status(200).json(user))
+        .catch(err => res.status(500).json(err.message))
+}
+
+const deleteUser = (req, res) => {
+    const { id } = req.params
+    user
+        .findOneAndDelete({ id })
+        .then(user => res.status(200).json(user))
+        .catch(err => res.status(500).json(err.message))
+}
+
+module.exports = { 
+    signup, 
+    login, 
+    getUsers, 
+    updateUser, 
+    deleteUser 
+}
